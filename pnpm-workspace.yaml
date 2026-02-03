@@ -1,3 +1,23 @@
+packages:
+  - packages/*
+  - apps/*
+  - libs/*
+
 onlyBuiltDependencies:
+  - '@alicloud/openapi-core'
   - '@nestjs/core'
+  - '@scarf/scarf'
+  - esbuild
+  - sharp
   - unrs-resolver
+  - 'msgpackr-extract'
+
+peerDependencyRules:
+  ignoreMissing:
+    - dotenv
+    - openai
+  allowedVersions:
+    "@nestjs/core": "11"
+    "@nestjs/common": "11"
+    "@nestjs/typeorm": "11"
+    "reflect-metadata": "*"

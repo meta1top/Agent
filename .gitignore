@@ -1,56 +1,44 @@
-# compiled output
-/dist
-/node_modules
-/build
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Logs
-logs
-*.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
+# dependencies
+node_modules
+/.pnp
+.pnp.js
 
-# OS
+# testing
+/coverage
+
+# next.js
+.next/
+out/
+
+# production
+build
+
+# misc
 .DS_Store
 
-# Tests
-/coverage
-/.nyc_output
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-# dotenv environment variable files
-.env
+# local env files
+.env.local
 .env.development.local
 .env.test.local
 .env.production.local
-.env.local
 
-# temp directory
-.temp
-.tmp
+packages/*/i18n/
+.idea/
+*.iml
+dist/
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
+apps/*/i18n/
+apps/*/out/
 
-# Diagnostic reports (https://nodejs.org/api/report.html)
-report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+# environment files
+.env
+next-env.d.ts
+apps/server/app.yaml
+.pnpm-store/

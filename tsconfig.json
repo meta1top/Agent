@@ -1,25 +1,33 @@
 {
   "compilerOptions": {
+    "target": "ES2023",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "skipLibCheck": true,
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2023",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@meta-1/agent-core": ["libs/core/src"],
+      "@meta-1/agent-core/*": ["libs/core/src/*"],
+      "@meta-1/agent-types": ["libs/types/src"],
+      "@meta-1/agent-types/*": ["libs/types/src/*"],
+      "@meta-1/agent-shared": ["libs/shared/src"],
+      "@meta-1/agent-shared/*": ["libs/shared/src/*"]
+    }
   }
 }
