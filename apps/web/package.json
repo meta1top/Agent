@@ -1,0 +1,41 @@
+{
+  "name": "@meta-1/web-agent",
+  "version": "0.0.1",
+  "keywords": [
+    "meta-1",
+    "agent",
+    "tailwindcss",
+    "react"
+  ],
+  "description": "Agent Web",
+  "author": "Grant <284885069@qq.com>",
+  "homepage": "https://github.com/meta1top/agent",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meta1top/agent.git"
+  },
+  "scripts": {
+    "dev": "NODE_NO_WARNINGS=1 PORT=3210 next dev",
+    "build": "next build && node scripts/post-build.js",
+    "start": "NODE_NO_WARNINGS=1 PORT=3210 next start",
+    "start:standalone": "cd .next/standalone/apps/web && NODE_ENV=production NODE_NO_WARNINGS=1 PORT=3110 node server.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "@svgr/webpack": "8.1.0",
+    "autoprefixer": "10.4.0",
+    "cookies-next": "5.0.2",
+    "cropperjs": "1.6.2",
+    "next-themes": "0.4.4",
+    "nuqs": "2.4.3",
+    "postcss": "8.4.0",
+    "react-cropper": "2.3.3",
+    "react-hook-form": "7.55.0",
+    "tailwindcss": "3.4.0"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "3.0.6",
+    "typescript": "5.9.3"
+  }
+}

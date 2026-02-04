@@ -42,3 +42,5 @@ apps/*/out/
 next-env.d.ts
 apps/server/app.yaml
 .pnpm-store/
+
+conf/server.yaml

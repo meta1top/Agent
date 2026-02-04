@@ -3,8 +3,8 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 export const setupSwagger = (app: INestApplication) => {
   const config = new DocumentBuilder()
-    .setTitle("MetaWiki Server")
-    .setDescription("The MetaWiki Server API description")
+    .setTitle("Agent God Server")
+    .setDescription("The Agent God Server API description")
     .setVersion("1.0")
     .addBearerAuth(
       {

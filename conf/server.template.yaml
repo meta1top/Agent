@@ -1,0 +1,65 @@
+database:
+    type: postgres
+    host: <host>
+    port: <port>
+    username: <username>
+    password: <password>
+    database: agent
+    logging: true
+redis:
+    type: 'single'
+    options:
+        host: <host>
+        port: <port>
+        password: <password>
+        db: <db>
+message:
+    debug: true
+    code: <code>
+    mail:
+        type: alc-dm
+        dm:
+            access-key-id: <access-key-id>
+            access-key-secret: <access-key-secret>
+            region: cn-hangzhou
+            from-email: <from-email>
+account:
+    public-key: |
+        -----BEGIN PUBLIC KEY-----
+        <public-key>
+        -----END PUBLIC KEY-----
+    private-key: |
+        -----BEGIN RSA PRIVATE KEY-----
+        <private-key>
+        -----END RSA PRIVATE KEY-----
+    aes-key: <aes-key>
+    expires-in: 1d
+security:
+    otp:
+        debug: true
+        code: <code>
+        expires-in: 5m
+        issuer: <issuer>
+    jwt:
+        secret: <secret>
+assets:
+    storage:
+        provider: minio
+        publicBucket: <public-bucket>
+        privateBucket: <private-bucket>
+        expiresIn: 30m
+    minio:
+        endpoint: <endpoint>
+        accessKeyId: <access-key-id>
+        secretAccessKey: <secret-access-key>
+task-queue:
+    remove-on-complete:
+        age: 3600
+        count: 1000
+    remove-on-fail:
+        age: 86400
+        count: 100
+    attempts: 1
+    backoff:
+        type: exponential
+        delay: 2000

@@ -22,9 +22,8 @@ config({ path: envPath });
 async function bootstrap() {
   const logger = new Logger("Main");
   const loader = new ConfigLoader<AppConfig>({
-    type: ConfigSourceType.NACOS,
-    server: process.env.NACOS_SERVER!,
-    dataId: process.env.APP_NAME!,
+    type: ConfigSourceType.LOCAL_YAML,
+    filePath: path.join(process.cwd(), "conf/server.yaml"),
   });
   const config = await loader.load();
   if (!config) {
