@@ -1,16 +1,123 @@
 "use client";
 
-import { FC } from "react";
-import { useAtomValue } from "jotai";
+import { FC, useState } from "react";
+import { useAtomValue, useSetAtom } from "jotai";
 
-import { useQuery } from "@meta-1/web-common/hooks";
+import type { LoginData } from "@meta-1/agent-types";
+import { LoginSchema } from "@meta-1/agent-types";
+import { Button, Card, Input, toast } from "@meta-1/design";
+import { useQuery as useWebQuery } from "@meta-1/web-common/hooks";
+import { login, profile } from "@/rest/account";
 import { getCommonConfig } from "@/rest/public";
 import { isLoginState, profileState } from "@/state/profile";
+
+const LoginForm: FC = () => {
+  const setIsLogin = useSetAtom(isLoginState);
+  const setProfile = useSetAtom(profileState);
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState<LoginData>({
+    email: "",
+    password: "",
+    otpCode: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const result = LoginSchema.safeParse(formData);
+    if (!result.success) {
+      const firstError = result.error.errors[0];
+      toast.error(firstError.message || "表单验证失败");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await login(result.data);
+      const profileResult = await profile();
+      const profileData = profileResult?.data || null;
+      setIsLogin(!!profileData);
+      setProfile(profileData);
+      toast.success("登录成功");
+      setFormData({
+        email: "",
+        password: "",
+        otpCode: "",
+      });
+      window.location.reload();
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "登录失败，请检查邮箱和密码";
+      toast.error(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <Card className="w-full max-w-md">
+      <div className="p-6">
+        <h2 className="mb-6 font-semibold text-2xl text-gray-800 dark:text-white">登录</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-4">
+            <div>
+              <label className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300" htmlFor="email">
+                邮箱 <span className="text-red-500">*</span>
+              </label>
+              <Input
+                disabled={isLoading}
+                id="email"
+                onChange={(value) => setFormData({ ...formData, email: value })}
+                placeholder="请输入邮箱"
+                required
+                type="email"
+                value={formData.email}
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300" htmlFor="password">
+                密码 <span className="text-red-500">*</span>
+              </label>
+              <Input
+                disabled={isLoading}
+                id="password"
+                onChange={(value) => setFormData({ ...formData, password: value })}
+                placeholder="请输入密码"
+                required
+                type="password"
+                value={formData.password}
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300" htmlFor="otpCode">
+                OTP验证码（可选）
+              </label>
+              <Input
+                disabled={isLoading}
+                id="otpCode"
+                maxLength={6}
+                onChange={(value) => setFormData({ ...formData, otpCode: value })}
+                placeholder="请输入6位数字验证码"
+                type="text"
+                value={formData.otpCode || ""}
+              />
+            </div>
+
+            <Button className="w-full" disabled={isLoading} type="submit">
+              {isLoading ? "登录中..." : "登录"}
+            </Button>
+          </div>
+        </form>
+      </div>
+    </Card>
+  );
+};
 
 const DemoPage: FC = () => {
   const isLogin = useAtomValue(isLoginState);
   const profileData = useAtomValue(profileState);
-  const { data: commonConfig } = useQuery({
+  const { data: commonConfig } = useWebQuery({
     queryKey: ["common:config"],
     queryFn: () => getCommonConfig(),
   });
@@ -22,6 +129,12 @@ const DemoPage: FC = () => {
           <div className="mb-12 text-center">
             <p className="text-gray-600 text-xl dark:text-gray-300">这是一个演示页面，展示系统的基本功能</p>
           </div>
+
+          {!isLogin && (
+            <div className="mb-8 flex justify-center">
+              <LoginForm />
+            </div>
+          )}
 
           <div className="grid gap-6 md:grid-cols-2">
             <div className="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
