@@ -13,6 +13,7 @@ import { AssetsModule } from "@meta-1/nest-assets";
 import { CommonModule, getI18nCollector, initI18nCollector, PlainTextLogger } from "@meta-1/nest-common";
 import { MessageModule } from "@meta-1/nest-message";
 import { SecurityModule } from "@meta-1/nest-security";
+import { ConfigController } from "./controller";
 
 @Module({})
 export class AppModule {
@@ -138,7 +139,7 @@ export class AppModule {
     return {
       module: AppModule,
       imports: [...imports],
-      controllers: [],
+      controllers: [ConfigController],
     };
   }
 }

@@ -1,0 +1,7 @@
+.layout {
+  --sidenav-width: 50px;
+  --bg-color-layout: #0d4d8d;
+}
+.dark .layout {
+  --bg-color-layout: #050505;
+}
