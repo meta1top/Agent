@@ -16,7 +16,7 @@ export const MainLayout: FC<MainLayoutProps> = (props) => {
     <div className={cn("layout flex h-screen bg-(--bg-color-layout)", className)}>
       <Sidenav />
       <div className="flex flex-1 flex-col p-1">
-        <div className="flex-1 rounded-lg border border-white bg-background dark:border-border">{children}</div>
+        <div className="min-h-0 flex-1 rounded-lg border border-white bg-background dark:border-border">{children}</div>
       </div>
     </div>
   );
