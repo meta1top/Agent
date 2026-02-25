@@ -67,7 +67,8 @@
 		"unrs",
 		"uuidv",
 		"vectorstores",
-		"wordprocessingml"
+		"wordprocessingml",
+		"lmdb"
 	],
 	"css.customData": ["${workspaceFolder}/.vscode/tailwind.json"],
 	"css.validate": false,

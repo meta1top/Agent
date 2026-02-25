@@ -8,6 +8,9 @@ import { RedisModule } from "@nestjs-modules/ioredis";
 import { AcceptLanguageResolver, HeaderResolver, I18nJsonLoader, I18nModule, QueryResolver } from "nestjs-i18n";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
+import { ChatModule } from "@meta-1/agent-chat";
+import ChatMigrations from "@meta-1/agent-chat/migrations";
+import { CoreModule } from "@meta-1/agent-core";
 import { APP_TASK_QUEUE_NAME, AppConfig, DEFAULT_TASK_QUEUE_CONFIG, SharedModule } from "@meta-1/agent-shared";
 import { AssetsModule } from "@meta-1/nest-assets";
 import { CommonModule, getI18nCollector, initI18nCollector, PlainTextLogger } from "@meta-1/nest-common";
@@ -74,7 +77,7 @@ export class AppModule {
       const databaseConfig = {
         ...preloadedConfig.database,
         synchronize: false,
-        migrations: [],
+        migrations: [...ChatMigrations],
       };
       if (!isDevelopment && preloadedConfig.database.synchronize) {
         logger.warn("synchronize is disabled in production environment for safety");
@@ -136,9 +139,16 @@ export class AppModule {
       logger.warn("Assets config not found, skipping Assets initialization");
     }
 
+    if (preloadedConfig?.core) {
+      logger.log("Initializing Core with preloaded config");
+      imports.push(CoreModule.forRoot(preloadedConfig.core));
+    } else {
+      logger.warn("Core config not found, skipping Core initialization");
+    }
+
     return {
       module: AppModule,
-      imports: [...imports],
+      imports: [...imports, ChatModule],
       controllers: [ConfigController],
     };
   }

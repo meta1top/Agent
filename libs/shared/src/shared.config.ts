@@ -35,6 +35,31 @@ export const DEFAULT_TASK_QUEUE_CONFIG: TaskQueueConfig = {
   },
 };
 
+
+
+export type CoreConfig = {
+  model: {
+    apiKey?: string;
+    baseUrl?: string;
+    chat: {
+      name: string;
+      apiKey?: string;
+      baseUrl?: string;
+    };
+    embedding: {
+      name: string;
+      apiKey?: string;
+      baseUrl?: string;
+    };
+  };
+};
+
+export type ResolvedModelConfig = {
+  name: string;
+  apiKey?: string;
+  baseUrl?: string;
+};
+
 export type AppConfig = {
   database: DatabaseConfig;
   redis: RedisConfig;
@@ -42,4 +67,5 @@ export type AppConfig = {
   security: SecurityConfig;
   assets: AssetsConfig;
   taskQueue: TaskQueueConfig;
+  core: CoreConfig;
 };

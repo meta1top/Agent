@@ -1,0 +1,1 @@
+export const CORE_MODULE_CONFIG = "CORE_MODULE_CONFIG";
