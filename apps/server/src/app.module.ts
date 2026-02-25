@@ -139,9 +139,9 @@ export class AppModule {
       logger.warn("Assets config not found, skipping Assets initialization");
     }
 
-    if (preloadedConfig?.core) {
+    if (preloadedConfig) {
       logger.log("Initializing Core with preloaded config");
-      imports.push(CoreModule.forRoot(preloadedConfig.core));
+      imports.push(CoreModule.forRoot(preloadedConfig));
     } else {
       logger.warn("Core config not found, skipping Core initialization");
     }

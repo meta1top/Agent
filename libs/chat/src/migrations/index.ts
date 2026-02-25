@@ -1,3 +1,3 @@
-import { Init1771991371357 } from "./1771991371357-Init";
+import { Init1772027752384 } from "./1772027752384-Init";
 
-export default [Init1771991371357];
+export default [Init1772027752384];

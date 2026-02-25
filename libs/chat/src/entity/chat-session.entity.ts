@@ -12,7 +12,7 @@ export class ChatSession {
 
   @Column({
     type: "varchar",
-    length: 20,
+    length: 50,
     comment: "标题",
   })
   title: string;

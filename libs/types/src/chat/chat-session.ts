@@ -8,3 +8,8 @@ export const NewChatSessionResultSchema = z.object({
   title: z.string().describe("标题"),
   sessionId: z.string().describe("会话 ID"),
 });
+
+export const ContinueChatSessionSchema = z.object({
+  sessionId: z.string().describe("会话 ID"),
+  message: z.string().describe("消息"),
+});

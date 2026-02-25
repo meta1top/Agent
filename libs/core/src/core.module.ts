@@ -1,12 +1,13 @@
 import { DynamicModule, Module } from "@nestjs/common";
 
-import { CoreConfig } from "@meta-1/agent-shared";
-import { ChatAgentService, CoreConfigService, ModelService } from "./service";
+import { AppConfig } from "@meta-1/agent-shared";
+import { AgentProcessor } from "./processor";
+import { AgentService, ChatService, ConfigService, ModelService } from "./service";
 import { CORE_MODULE_CONFIG } from "./shared";
 
 @Module({})
 export class CoreModule {
-  static forRoot(config: CoreConfig, global = true): DynamicModule {
+  static forRoot(config: AppConfig, global = true): DynamicModule {
     return {
       global,
       module: CoreModule,
@@ -15,11 +16,13 @@ export class CoreModule {
           provide: CORE_MODULE_CONFIG,
           useValue: config,
         },
-        CoreConfigService,
+        ConfigService,
         ModelService,
-        ChatAgentService,
+        ChatService,
+        AgentService,
+        AgentProcessor,
       ],
-      exports: [CoreConfigService, ModelService, ChatAgentService],
+      exports: [ConfigService, ModelService, ChatService],
       controllers: [],
     };
   }

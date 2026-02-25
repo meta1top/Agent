@@ -11,16 +11,13 @@ export type InvokeResult = {
 };
 
 @Injectable()
-export class ChatAgentService {
+export class ChatService {
   constructor(private readonly modelService: ModelService) {}
 
   async invoke(options: InvokeOptions): Promise<InvokeResult> {
     const model = this.modelService.getChatModel();
     const response = await model.invoke(options.message);
-    const content =
-      typeof response.content === "string"
-        ? response.content
-        : String(response.content ?? "");
+    const content = typeof response.content === "string" ? response.content : String(response.content ?? "");
     return { content };
   }
 }

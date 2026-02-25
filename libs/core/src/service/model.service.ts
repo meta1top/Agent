@@ -2,7 +2,7 @@ import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { Injectable } from "@nestjs/common";
 
 import type { ResolvedModelConfig } from "@meta-1/agent-shared";
-import { CoreConfigService } from "./core-config.service";
+import { ConfigService } from "./config.service";
 
 type ChatModelOptions = {
   model: string;
@@ -18,15 +18,15 @@ type EmbeddingModelOptions = {
 
 @Injectable()
 export class ModelService {
-  constructor(private readonly coreConfig: CoreConfigService) {}
+  constructor(private readonly config: ConfigService) {}
 
   getChatModel(): ChatOpenAI {
-    const config = this.coreConfig.getChatModelConfig();
+    const config = this.config.getChatModelConfig();
     return this.createChatModel(config);
   }
 
   getEmbeddingModel(): OpenAIEmbeddings {
-    const config = this.coreConfig.getEmbeddingModelConfig();
+    const config = this.config.getEmbeddingModelConfig();
     return this.createEmbeddingModel(config);
   }
 
